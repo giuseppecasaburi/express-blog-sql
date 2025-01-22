@@ -60,9 +60,14 @@ const destroy = (req, res) => {
             return res.status(500).json({
                 message: "Internal error server"
             });
-        } 
-        
-        res.sendStatus(204)
+        }
+
+        // affectedRows E' UNA PROPRIETà DI results CHE INDICA IL NUMERO DI RIGHE EFFETTIVAMENTE MODIFICATE
+        if (results.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Post not found"
+            });
+        } else { return res.sendStatus(204)};
     });
 };
 
